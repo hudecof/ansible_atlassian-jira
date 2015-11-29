@@ -1,31 +1,70 @@
 Role Name
 =========
 
-A brief description of the role goes here.
+Role tp help install or update the Atlassian Jira.
 
 Requirements
 ------------
 
-Any pre-requisites that may not be covered by Ansible itself or the role should be mentioned here. For instance, if the role uses the EC2 module, it may be a good idea to mention in this section that the boto package is required.
+For running Atlassian Jira you need a little bit more
+
+- java
+- database
+- init script
+
+*java* is out of scope for this playbook. I can't force you to install 
+any version of java on your server. Use any existing java roles to do that.
+I have my own role `hudecof.java` to do that.
+
+You could preffer another  *database* as me. So this is out of scope too.  
+
+The *tar.gz* version do not have startup script. I use `supervisord` to do this job.
+I will generate template for `supervisord` and `init.d` and put it into *instalation dorectory* directory.
+
+If you are updating, shutdown you old instance manually. This role do not handle this!.
+It will just setup your new instance with your customizations.
 
 Role Variables
 --------------
 
-A description of the settable variables for this role should go here, including any variables that are in defaults/main.yml, vars/main.yml, and any variables that can/should be set via parameters to the role. Any variables that are read from other roles and/or the global scope (ie. hostvars, group vars, etc.) should be mentioned here as well.
+`atlassian_jira_version` is the verion you want to install. Thi sis the only one varialble you need to change, the others are optional.
+
+`atlassian_jira_type` is small hack to support *jira-software* and *jira-core*. If you are instlalling jira before version *7.0.0*, leave this variable as is. For version *7.0.0* and above, choose `core`  or `software`.
+ 
+`atlassian_jira_baseurl` is the URL where you can find the *tar.gz* files. If you have your own mirror, change it.
+
+`atlassian_jira_basedir` is path where to download nad extract the *tar.gz* file, defaults to `/opt/atlassian`.
+
+`atlassian_jira_home` is the `jira.home`, aka you data directory.
+
+`atlassian_jira_user`, `atlassian_jira_uid`, `atlassian_jira_group`, `atlassian_jira_gid` are variables to setup dedicated user to run the instance 
+
+`atlassian_jira_server_xml` is list of changes to `server.xml` It ueses XPath to edit/add/remoce exiting properties.
+
+    atlassian_jira_server_xml:
+    - xpath: /Server/Service/Connector
+      ensure: present
+      attribute: proxyPort
+      value: 443
+    - xpath: /Server/Service/Connector
+      ensure: present
+      attribute: scheme
+      value: https
+
+`atlassian_jira_jvm_opts` is the list of custom *JVM_OPTS* properties. At this moment you can't change the existing one ;(
 
 Dependencies
 ------------
 
-A list of other roles hosted on Galaxy should go here, plus any details in regards to parameters that may need to be set for other roles, or variables that are used from other roles.
+This role depens on the `cmprescott.xml` role/library.
 
 Example Playbook
 ----------------
 
-Including an example of how to use your role (for instance, with variables passed in as parameters) is always nice for users too:
-
-    - hosts: servers
+    - hosts: atlassian
       roles:
-         - { role: username.rolename, x: 42 }
+         - cmprescott.xml
+         - hudecof.atlassian-jira
 
 License
 -------
@@ -35,4 +74,5 @@ BSD
 Author Information
 ------------------
 
-An optional section for the role authors to include contact information, or a website (HTML is not allowed).
+Peter Hudec
+CNC, a.s.
