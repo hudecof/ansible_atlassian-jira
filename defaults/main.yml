@@ -1,0 +1,19 @@
+---
+# defaults file for atlassian-jira
+atlassian_jira_version: CHANGEME
+
+atlassain_jira_type: None
+
+atlassian_jira_baseurl: https://www.atlassian.com/software/jira/downloads/binary
+atlassian_jira_basedir: /opt/atlassian
+atlassian_jira_home: /srv/atlassian/jira
+
+atlassian_jira_user: jira
+atlassian_jira_uid: 10001
+atlassian_jira_group: jira
+atlassian_jira_gid: 10001
+
+
+atlassian_jira_server_xml: []
+
+atlassian_jira_jvm_opts: []

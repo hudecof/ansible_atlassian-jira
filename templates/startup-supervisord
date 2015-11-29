@@ -1,0 +1,10 @@
+[program:jira]
+command={{ atlassian_jira_dir }}/bin/start-jira.sh -fg
+numprocs=1
+process_name=%(program_name)s
+user={{ atlassian_jira_user }}
+killasgroup=true
+stopasgroup=true
+stopsignal=INT
+startsecs=5
+stopwaitsecs=60
