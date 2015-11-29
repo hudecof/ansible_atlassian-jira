@@ -2,7 +2,7 @@
 # defaults file for atlassian-jira
 atlassian_jira_version: CHANGEME
 
-atlassain_jira_type: None
+atlassian_jira_type: none
 
 atlassian_jira_baseurl: https://www.atlassian.com/software/jira/downloads/binary
 atlassian_jira_basedir: /opt/atlassian
