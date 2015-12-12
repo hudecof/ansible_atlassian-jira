@@ -1,0 +1,61 @@
+---
+- name: copy crowd.properties
+  template:
+    src: crowd.properties
+    dest: "{{ atlassian_jira_home }}/crowd.properties"
+    owner: "{{ atlassian_jira_user }}"
+    group: "{{ atlassian_jira_group }}"
+    mode: "0640"
+    force: no
+  tags:
+    - atlassian-jira
+
+- name: adjusing crowd properties / server url
+  lineinfile:
+    dest: "{{ atlassian_jira_home }}/crowd.properties"
+    regexp: "^\\s*{{ item.name }}\\s+"
+    line: "{{ item.name }}\t\t{{ item.value }}"
+    insertafter: EOF
+  with_items:
+    - { "name": "application.login.url", "value": "{{ atlassian_jira_crowd_url }}/console/"}
+    - { "name": "crowd.server.url", "value": "{{ atlassian_jira_crowd_url }}/services/"}
+    - { "name": "crowd.base.url", "value": "{{ atlassian_jira_crowd_url }}/"}
+  tags:
+    - atlassian-jira
+
+- name: adjusing crowd properties / server others
+  lineinfile:
+    dest: "{{ atlassian_jira_home }}/crowd.properties"
+    regexp: "^\\s*{{ item.name }}\\s+"
+    line: "{{ item.name }}\t\t{{ item.value }}"
+    insertafter: EOF
+  with_items: atlassian_jira_crowd_properties|default([])
+  tags:
+    - atlassian-jira
+
+- name: change seraph-config.xml authentificator
+  xml:
+    file: "{{ atlassian_jira_dir }}/atlassian-jira/WEB-INF/classes/seraph-config.xml"
+    xpath: /security-config/authenticator
+    ensure: present
+    attribute: class
+    value: com.atlassian.jira.security.login.SSOSeraphAuthenticator
+  tags:
+    - atlassian-jira
+
+- name: jvm enviroment settings for CrowdSSO (1)
+  lineinfile:
+    dest: "{{ atlassian_jira_dir }}/bin/setenv.sh"
+    regexp: '^JVM_CROWDSSO_OPTS='
+    line: 'JVM_CROWDSSO_OPTS="-Dcrowd.properties={{ atlassian_jira_home }}/crowd.properties"'
+    insertbefore: '^JVM_SUPPORT_RECOMMENDED_ARGS'
+  tags:
+    - atlassian-jira
+
+- name: jvm enviroment settings for CrowdSSO (2)
+  replace:
+    dest: "{{ atlassian_jira_dir }}/bin/setenv.sh"
+    regexp: '^JVM_SUPPORT_RECOMMENDED_ARGS="(((?!\$\{JVM_CROWDSSO_OPTS\}).)*)"$'
+    replace: 'JVM_SUPPORT_RECOMMENDED_ARGS="\1 ${JVM_CROWDSSO_OPTS}"'
+  tags:
+    - atlassian-jira

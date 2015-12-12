@@ -53,6 +53,8 @@ Role Variables
 
 `atlassian_jira_jvm_opts` is the list of custom *JVM_OPTS* properties. At this moment you can't change the existing one ;(
 
+For *CrowdSSO* see `CrowdSSO.md`
+
 Dependencies
 ------------
 

@@ -17,3 +17,10 @@ atlassian_jira_gid: 10001
 atlassian_jira_server_xml: []
 
 atlassian_jira_jvm_opts: []
+
+# related to CrowdSSO
+atlassian_jira_crowd: false
+atlassian_jira_crowd_url: http://localhost:8095/crowd
+
+atlassian_jira_crowd_properties: []
+

@@ -1,0 +1,34 @@
+CrowdSSO Integration
+====================
+
+Interation of the CrowdSSO is baed on Atlassian documenation
+
+- https://confluence.atlassian.com/display/CROWD/The+crowd.properties+file
+- https://confluence.atlassian.com/display/CROWD/Integrating+Crowd+with+Atlassian+JIRA
+
+crowd.properties
+----------------
+
+Configuration file is moves to `atlassian_jira_home` directory. The **JVM_SUPPORT_RECOMMENDED_ARGS** in `bin/setenv.sh` are changed to reflect it.
+
+If this file exists is not overwritten, so you can write there your own configuration items. See the variables section which variabes could be manageged.
+
+Variables
+---------
+
+`atlassian_jira_crowd` must be set to `true` to enable the CrowsSSO.
+
+`atlassian_jira_crowd_url` is default set to `http://localhost:8095/crowd`. This is uses to set following properties
+
+- application.login.url
+- crowd.server.url
+- crowd.base.url 
+
+To manage other properties use `atlassian_jira_crowd_properties` this way
+
+    atlassian_jira_crowd_properties:
+      - name: PROPERTY NAME
+        value: PROPERTY VALUE
+
+
+I do not manage the `application.name` and `application.password` for security reason. Sst it maunally for the first timei or use `atlassian_jira_crowd_properties`.
