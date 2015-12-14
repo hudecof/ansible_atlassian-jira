@@ -24,3 +24,4 @@ atlassian_jira_crowd_url: http://localhost:8095/crowd
 
 atlassian_jira_crowd_properties: []
 
+atlassian_jira_seraph_config: []

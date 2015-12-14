@@ -32,3 +32,18 @@ To manage other properties use `atlassian_jira_crowd_properties` this way
 
 
 I do not manage the `application.name` and `application.password` for security reason. Sst it maunally for the first timei or use `atlassian_jira_crowd_properties`.
+
+
+`atlassian_jira_seraph_config` is to change the **seraph_config.xml**. The `/security-config/authenticator` is changed automaticly, do not add it here. The config could look like
+
+    atlassian_jira_seraph_config:
+      - xpath: XPATH
+      - value: VALUE
+      - attribite: default is OMIT
+      - ensure: default is present
+
+
+    atlassian_jira_seraph_config:
+      - xpath: /security-config/parameters/init-param[param-name='link.login.url']/param-value
+        value: YOUR COMPANY SSO LOGIN LINK
+

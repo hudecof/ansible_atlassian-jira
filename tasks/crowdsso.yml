@@ -43,6 +43,17 @@
   tags:
     - atlassian-jira
 
+- name: change seraph-config.xml others
+  xml:
+    file: "{{ atlassian_jira_dir }}/atlassian-jira/WEB-INF/classes/seraph-config.xml"
+    xpath: "{{ item.xpath }}"
+    attribute: "{{ item.attribute|default(omit) }}"
+    ensure: "{{ item.ensure|default('present')}}"
+    value: "{{ item.value|default(omit) }}"
+  with_items: atlassian_jira_seraph_config
+  tags:
+    - atlassian-jira
+
 - name: jvm enviroment settings for CrowdSSO (1)
   lineinfile:
     dest: "{{ atlassian_jira_dir }}/bin/setenv.sh"
