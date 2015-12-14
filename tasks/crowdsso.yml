@@ -48,7 +48,7 @@
     file: "{{ atlassian_jira_dir }}/atlassian-jira/WEB-INF/classes/seraph-config.xml"
     xpath: "{{ item.xpath }}"
     attribute: "{{ item.attribute|default(omit) }}"
-    ensure: "{{ item.ensure|default('present')}}"
+    ensure: "{{ item.ensure|default('present') }}"
     value: "{{ item.value|default(omit) }}"
   with_items: atlassian_jira_seraph_config
   tags:
