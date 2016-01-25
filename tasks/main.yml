@@ -1,7 +1,11 @@
 ---
 
+- include: facts.yml
+  when: '"facts" in atlassian_jira_do'
+ 
 - include: application.yml
+  when: '"application" in atlassian_jira_do'
 
 - include: crowdsso.yml
-  when: atlassian_jira_crowd
+  when: '"crowdsso" in atlassian_jira_do'
 

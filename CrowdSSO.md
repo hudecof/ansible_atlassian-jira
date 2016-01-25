@@ -16,7 +16,7 @@ If this file exists is not overwritten, so you can write there your own configur
 Variables
 ---------
 
-`atlassian_jira_crowd` must be set to `true` to enable the CrowsSSO.
+To enable CrowdSSO add *crowdsso* into `atlassian_jira_do` list.
 
 `atlassian_jira_crowd_url` is default set to `http://localhost:8095/crowd`. This is uses to set following properties
 

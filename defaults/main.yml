@@ -1,5 +1,9 @@
 ---
 # defaults file for atlassian-jira
+atlassian_jira_do:
+  - facts
+  - application
+
 atlassian_jira_version: CHANGEME
 
 atlassian_jira_type: none
@@ -19,7 +23,7 @@ atlassian_jira_server_xml: []
 atlassian_jira_jvm_opts: []
 
 # related to CrowdSSO
-atlassian_jira_crowd: false
+# add 'crowdsso' into 'atlassian_jira_do'
 atlassian_jira_crowd_url: http://localhost:8095/crowd
 
 atlassian_jira_crowd_properties: []

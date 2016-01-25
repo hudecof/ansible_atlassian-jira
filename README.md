@@ -26,6 +26,14 @@ It will just setup your new instance with your customizations.
 
 Role Variables
 --------------
+`atlassian_jira_do` is the list of action to run. Normaly you do not need to modify this.
+Supported items are *facts*, *appliaction*, *crowdsso*. Defualts are *facts*, *application*.
+I use this to varible during in some playbooks, where do I need onl the facsts to be set
+
+    hosts: <some hosts>
+    roles:
+      - { role: hudecof.atlassian-jira, atlassian_jira_do: ['facts'] }
+
 
 `atlassian_jira_version` is the verion you want to install. Thi sis the only one varialble you need to change, the others are optional.
 

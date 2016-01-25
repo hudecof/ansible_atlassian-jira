@@ -7,34 +7,6 @@
     - python-lxml
   tags:
     - atlassian-jira
- 
-- name: set basic facts (old jira, until 6.4.X)
-  set_fact:
-    download_url: "{{ atlassian_jira_baseurl }}/atlassian-jira-{{ atlassian_jira_version }}.tar.gz"
-    download_tmp: "{{ atlassian_jira_basedir }}/atlassian-jira-{{ atlassian_jira_version }}.tar.gz"
-    atlassian_jira_dir: "{{ atlassian_jira_basedir }}/atlassian-jira-{{ atlassian_jira_version }}-standalone"
-  when: atlassian_jira_type == 'none'
-  tags:
-    - atlassian-jira
-
-- name: set basic facts (jira core, since 7.X.X)
-  set_fact:
-    download_url: "{{ atlassian_jira_baseurl }}/atlassian-jira-core-{{ atlassian_jira_version }}.tar.gz"
-    download_tmp: "{{ atlassian_jira_basedir }}/atlassian-jira-core-{{ atlassian_jira_version }}.tar.gz"
-    atlassian_jira_dir: "{{ atlassian_jira_basedir }}/atlassian-jira-core-{{ atlassian_jira_version }}-standalone"
-  when: atlassian_jira_type == 'core'
-  tags:
-    - atlassian-jira
-
-- name: set basic facts (jira software, since 7.X.X)
-  set_fact:
-    download_url: "{{ atlassian_jira_baseurl }}/atlassian-jira-software-{{ atlassian_jira_version }}-jira-{{ atlassian_jira_version }}.tar.gz"
-    download_tmp: "{{ atlassian_jira_basedir }}/atlassian-jira-software-{{ atlassian_jira_version }}-jira-{{ atlassian_jira_version }}.tar.gz"
-    atlassian_jira_dir: "{{ atlassian_jira_basedir }}/atlassian-jira-software-{{ atlassian_jira_version }}-standalone"
-  when: atlassian_jira_type == 'software'
-  tags:
-    - atlassian-jira
-
 
 - name: create application group
   group: name={{ atlassian_jira_group }} system=no gid={{ atlassian_jira_gid }} state=present 
