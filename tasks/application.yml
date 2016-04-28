@@ -42,7 +42,7 @@
     - atlassian-jira
 
 - name: create user
-  user: name="{{ atlassian_jira_user }}" system=no createhome=no comment="Atlassian Confluence" group={{ atlassian_jira_group }} home=/nonexistant shell=/bin/false state=present
+  user: name="{{ atlassian_jira_user }}" uid="{{ atlassian_jira_uid }}" system=no createhome=no comment="Atlassian Jira" group={{ atlassian_jira_group }} home=/nonexistant shell=/bin/false state=present
   tags:
     - atlassian-jira
 
@@ -121,7 +121,7 @@
     ensure: "{{ item.ensure|default('present') }}"
     attribute: "{{ item.attribute|default('') }}"
     value: "{{ item.value|default('') }}"
-  with_items: atlassian_jira_server_xml
+  with_items: '{{ atlassian_jira_server_xml }}'
   tags:
     - atlassian-jira
 
