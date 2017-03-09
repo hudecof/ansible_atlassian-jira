@@ -91,9 +91,9 @@
     file: "{{ atlassian_jira_dir }}/conf/server.xml"
     xpath: "{{ item.xpath }}"
     ensure: "{{ item.ensure|default('present') }}"
-    attribute: "{{ item.attribute|default('') }}"
-    value: "{{ item.value|default('') }}"
-  with_items: atlassian_jira_server_xml
+    attribute: "{{ item.attribute|default(omit) }}"
+    value: "{{ item.value|default(omit) }}"
+  with_items: "{{ atlassian_jira_server_xml }}"
   tags:
     - atlassian-jira
 
