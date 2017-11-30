@@ -3,4 +3,4 @@
   hosts: all
   roles:
     - role: cmprescott.xml
-    - role: ansible_atlassian-confluence
+    - role: ansible_atlassian-jira
