@@ -1,0 +1,33 @@
+---
+- name: download atlassian-jira tar.gz
+  get_url:
+    url: "{{ download_url }}"
+    dest: "{{ download_tmp }}"
+    validate_certs: no
+    force: no
+
+- name: extract the atlassian-jira tar.gz
+  unarchive:
+    copy: no
+    creates: "{{ atlassian_jira_dir }}"
+    owner: root
+    group: root
+    src: "{{ download_tmp }}"
+    dest: "{{ atlassian_jira_basedir }}"
+
+- name: fix directory permissions
+  file:
+    path: "{{ item.path }}"
+    state: directory
+    owner: "{{ item.owner }}"
+    group: "{{ item.group }}"
+  with_items:
+    - {path: "{{ atlassian_jira_dir }}/temp",
+       owner: "{{ atlassian_jira_user }}",
+       group: "{{ atlassian_jira_group }}"}
+    - {path: "{{ atlassian_jira_dir }}/work",
+       owner: "{{ atlassian_jira_user }}",
+       group: "{{ atlassian_jira_group }}"}
+    - {path: "{{ atlassian_jira_dir }}/logs",
+       owner: "{{ atlassian_jira_user }}",
+       group: "{{ atlassian_jira_group }}"}

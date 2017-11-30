@@ -1,0 +1,35 @@
+---
+dependency:
+  name: galaxy
+  options:
+    role-file: molecule/default/requirements.yml
+driver:
+  name: docker
+lint:
+  name: yamllint
+  options:
+    config-file: molecule/default/yaml-lint.yml
+platforms:
+  - name: debian-9
+    image: debian:9
+  - name: ubuntu-16.04
+    image: ubuntu:16.04
+  - name: centos-7
+    image: centos:7
+provisioner:
+  name: ansible
+  playbooks:
+    create: ../default/create.yml
+    destroy: ../default/destroy.yml
+    converge: playbook.yml
+  inventory:
+    links:
+      group_vars: ../../default/inventory/group_vars/
+  lint:
+    name: ansible-lint
+scenario:
+  name: github
+verifier:
+  name: testinfra
+  lint:
+    name: flake8

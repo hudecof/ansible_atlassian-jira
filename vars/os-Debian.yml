@@ -1,0 +1,4 @@
+---
+
+__atlassian_jira_packages:
+  - {'name': 'python-lxml', 'state': 'present'}

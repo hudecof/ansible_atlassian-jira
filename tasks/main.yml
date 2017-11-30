@@ -1,11 +1,58 @@
 ---
 
-- include: facts.yml
-  when: '"facts" in atlassian_jira_do'
- 
-- include: application.yml
-  when: '"application" in atlassian_jira_do'
+- name: "common | set os specific variables"
+  include_vars: "{{ item }}"
+  with_first_found:
+    - "os-{{ ansible_distribution }}-{{ ansible_distribution_release }}.yml"
+    - "os-{{ ansible_distribution }}-{{ ansible_distribution_version }}.yml"
+    - "os-{{ ansible_distribution }}-{{ ansible_distribution_major_version }}.yml"
+    - "os-{{ ansible_distribution }}.yml"
+    - "os-{{ ansible_os_family }}.yml"
+  tags:
+    - atlassian-jira
+    - atlassian-jira:packages
+    - atlassian-jira:setup
+    - atlassian-jira:install
+    - atlassian-jira:config
+    - atlassian-jira:crowd
 
-- include: crowdsso.yml
-  when: '"crowdsso" in atlassian_jira_do'
 
+- name: include package tasks
+  include: packages-{{ ansible_os_family }}.yml
+  tags:
+    - atlassian-jira
+    - atlassian-jira:packages
+
+- name: include facts tasks
+  include: facts-common.yml
+  tags:
+    - atlassian-jira
+    - atlassian-jira:setup
+    - atlassian-jira:install
+    - atlassian-jira:config
+    - atlassian-jira:crowd
+
+- name: include setup tasks
+  include: setup-common.yml
+  tags:
+    - atlassian-jira
+    - atlassian-jira:setup
+
+- name: include install tasks
+  include: install-common.yml
+  tags:
+    - atlassian-jira
+    - atlassian-jira:install
+
+- name: include config tasks
+  include: config-common.yml
+  tags:
+    - atlassian-jira
+    - atlassian-jira:config
+
+- name: include crowdsso tasks
+  include: crowdsso-common.yml
+  when: atlassian_jira_crowd
+  tags:
+    - atlassian-jira
+    - atlassian-jira:crowd

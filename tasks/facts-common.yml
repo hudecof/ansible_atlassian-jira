@@ -7,9 +7,6 @@
     download_tmp: "{{ atlassian_jira_basedir }}/atlassian-jira-{{ atlassian_jira_version }}.tar.gz"
     atlassian_jira_dir: "{{ atlassian_jira_basedir }}/atlassian-jira-{{ atlassian_jira_version }}-standalone"
   when: atlassian_jira_type == 'none'
-  tags:
-    - atlassian-jira
-    - facts
 
 - name: set basic facts (jira core, since 7.X.X)
   set_fact:
@@ -17,9 +14,6 @@
     download_tmp: "{{ atlassian_jira_basedir }}/atlassian-jira-core-{{ atlassian_jira_version }}.tar.gz"
     atlassian_jira_dir: "{{ atlassian_jira_basedir }}/atlassian-jira-core-{{ atlassian_jira_version }}-standalone"
   when: atlassian_jira_type == 'core'
-  tags:
-    - atlassian-jira
-    - facts
 
 - name: set basic facts (jira software, since 7.X.X)
   set_fact:
@@ -27,7 +21,3 @@
     download_tmp: "{{ atlassian_jira_basedir }}/atlassian-jira-software-{{ atlassian_jira_version }}-jira-{{ atlassian_jira_version }}.tar.gz"
     atlassian_jira_dir: "{{ atlassian_jira_basedir }}/atlassian-jira-software-{{ atlassian_jira_version }}-standalone"
   when: atlassian_jira_type == 'software'
-  tags:
-    - atlassian-jira
-    - facts
-

@@ -1,0 +1,36 @@
+---
+- name: create application group
+  group:
+    name: "{{ atlassian_jira_group }}"
+    system: no
+    gid: "{{ atlassian_jira_gid }}"
+    state: present
+
+- name: create user
+  user:
+    name: "{{ atlassian_jira_user }}"
+    uid: "{{ atlassian_jira_uid }}"
+    system: no
+    createhome: no
+    comment: "Atlassian Jira"
+    group: "{{ atlassian_jira_group }}"
+    home: /nonexistant
+    shell: /bin/false
+    state: present
+
+- name: create directories
+  file:
+    path: "{{ item.path }}"
+    state: directory
+    owner: "{{ item.owner }}"
+    group: "{{ item.group }}"
+    mode: "{{ item.mode }}"
+  with_items:
+    - {path: "{{ atlassian_jira_basedir }}",
+       owner: 'root',
+       group: 'root',
+       mode: '0751'}
+    - {path: "{{ atlassian_jira_home }}",
+       owner: "{{ atlassian_jira_user }}",
+       group: "{{ atlassian_jira_group }}",
+       mode: '0750'}

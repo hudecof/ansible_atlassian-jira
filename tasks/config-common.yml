@@ -1,0 +1,40 @@
+---
+
+- name: set jira.home variable
+  lineinfile:
+    dest: "{{ atlassian_jira_dir }}/atlassian-jira/WEB-INF/classes/jira-application.properties"
+    regexp: "^jira.home\\s*="
+    insertafter: "^# jira.home=/var/data/jira/"
+    line: "jira.home = {{ atlassian_jira_home }}"
+    state: present
+
+- name: change server.xml
+  xml:
+    file: "{{ atlassian_jira_dir }}/conf/server.xml"
+    xpath: "{{ item.xpath }}"
+    ensure: "{{ item.ensure|default('present') }}"
+    attribute: "{{ item.attribute|default(omit) }}"
+    value: "{{ item.value|default(omit) }}"
+  with_items: "{{ atlassian_jira_server_xml }}"
+
+- name: jvm enviroment settings (1)
+  lineinfile:
+    dest: "{{ atlassian_jira_dir }}/bin/setenv.sh"
+    regexp: '^JVM_ANSIBLE_OPTS='
+    line: 'JVM_ANSIBLE_OPTS="{{ atlassian_jira_jvm_opts|join(" ")}}"'
+    insertbefore: '^JVM_SUPPORT_RECOMMENDED_ARGS'
+
+- name: jvm enviroment settings (2)
+  replace:
+    dest: "{{ atlassian_jira_dir }}/bin/setenv.sh"
+    regexp: '^JVM_SUPPORT_RECOMMENDED_ARGS="(((?!\$\{JVM_ANSIBLE_OPTS\}).)*)"$'
+    replace: 'JVM_SUPPORT_RECOMMENDED_ARGS="\1 ${JVM_ANSIBLE_OPTS}"'
+
+- name: create template startup sctipts
+  template:
+    src: "{{ item }}"
+    dest: "{{ atlassian_jira_dir }}/{{ item }}"
+  with_items:
+    - startup-init.d
+    - startup-supervisord
+    - startup-systemd

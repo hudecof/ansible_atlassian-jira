@@ -1,0 +1,9 @@
+---
+
+- name: "check packages (redhat)"
+  yum:
+    pkg: "{{ package.name }}"
+    state: "{{ package.state }}"
+  with_items: "{{ atlassian_jira_packages }}"
+  loop_control:
+    loop_var: package

@@ -1,0 +1,15 @@
+---
+  atlassian_confluence_version: 6.5.0
+  atlassian_confluence_server_xml:
+    - xpath: /Server/Service/Connector
+      ensure: present
+      attribute: proxyPort
+      value: 443
+    - xpath: /Server/Service/Connector
+      ensure: present
+      attribute: scheme
+      value: https
+    - xpath: /Server/Service/Connector
+      ensure: present
+      attribute: proxyName
+      value: wiki.example.com
