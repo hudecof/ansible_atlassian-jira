@@ -1,5 +1,6 @@
 ---
   atlassian_jira_version: 7.6.0
+  atlassian_jira_type: core
   atlassian_jira_server_xml:
     - xpath: /Server/Service/Connector
       ensure: present
