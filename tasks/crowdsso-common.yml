@@ -25,7 +25,7 @@
     regexp: "^\\s*{{ item.name }}\\s+"
     line: "{{ item.name }}\t\t{{ item.value }}"
     insertafter: EOF
-  with_items: atlassian_jira_crowd_properties|default([])
+  with_items: "{{ atlassian_jira_crowd_properties|default([]) }}"
 
 - name: change seraph-config.xml authentificator
   xml:
@@ -42,7 +42,7 @@
     attribute: "{{ item.attribute|default(omit) }}"
     ensure: "{{ item.ensure|default('present') }}"
     value: "{{ item.value|default(omit) }}"
-  with_items: atlassian_jira_seraph_config
+  with_items: "{{ atlassian_jira_seraph_config }}"
 
 - name: jvm enviroment settings for CrowdSSO (1)
   lineinfile:
