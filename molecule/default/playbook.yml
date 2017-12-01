@@ -3,4 +3,4 @@
   hosts: all
   roles:
     - role: cmprescott.xml
-    - role: hudecof.atlassian-confluence
+    - role: hudecof.atlassian-jira
