@@ -1,6 +1,6 @@
 # Role Name
 
-Role tp help install or update the Atlassian Jira.
+Role to help install or update the Atlassian Jira.
 
 ## Requirements
 
@@ -25,8 +25,8 @@ It will just setup your new instance with your customizations.
 ## Role Variables
 
 `atlassian_jira_do` is the list of action to run. Normally you do not need to modify this.
-Supported items are *facts*, *appliaction*, *crowdsso*. Defualts are *facts*, *application*.
-I use this to varible during in some playbooks, where do I need only the facts to be set
+Supported items are *facts*, *application*, *crowdsso*. Defaults are *facts*, *application*.
+I use this to variable during in some playbooks, where do I need only the facts to be set
 
     hosts: <some hosts>
     roles:
@@ -63,7 +63,7 @@ For *CrowdSSO* see `CrowdSSO.md`
 
 ## Dependencies
 
-This role depens on the `cmprescott.xml` role/library.
+This role depends on the `cmprescott.xml` role/library.
 
 ## Example Playbook
 
