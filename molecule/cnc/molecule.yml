@@ -12,8 +12,8 @@ lint:
 platforms:
   - name: debian-9
     image: debian:9
-  - name: ubuntu-16.04
-    image: ubuntu:16.04
+  - name: ubuntu-18.04
+    image: ubuntu:18.04
   - name: centos-7
     image: centos:7
 provisioner:
@@ -24,7 +24,7 @@ provisioner:
     converge: playbook.yml
   inventory:
     links:
-      group_vars: ../../default/inventory/group_vars/
+      group_vars: ../default/inventory/group_vars/
   lint:
     name: ansible-lint
 scenario:
