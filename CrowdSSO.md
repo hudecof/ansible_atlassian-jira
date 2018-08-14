@@ -1,20 +1,17 @@
-CrowdSSO Integration
-====================
+## CrowdSSO Integration
 
 Interation of the CrowdSSO is baed on Atlassian documenation
 
 - https://confluence.atlassian.com/display/CROWD/The+crowd.properties+file
 - https://confluence.atlassian.com/display/CROWD/Integrating+Crowd+with+Atlassian+JIRA
 
-crowd.properties
-----------------
+## crowd.properties
 
 Configuration file is moves to `atlassian_jira_home` directory. The **JVM_SUPPORT_RECOMMENDED_ARGS** in `bin/setenv.sh` are changed to reflect it.
 
 If this file exists is not overwritten, so you can write there your own configuration items. See the variables section which variabes could be manageged.
 
-Variables
----------
+## Variables
 
 To enable CrowdSSO add *crowdsso* into `atlassian_jira_do` list.
 
