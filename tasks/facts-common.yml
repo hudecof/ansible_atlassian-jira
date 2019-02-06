@@ -17,7 +17,7 @@
 
 - name: set basic facts (jira software, since 7.X.X)
   set_fact:
-    download_url: "{{ atlassian_jira_baseurl }}/atlassian-jira-software-{{ atlassian_jira_version }}-jira-{{ atlassian_jira_version }}.tar.gz"
-    download_tmp: "{{ atlassian_jira_basedir }}/atlassian-jira-software-{{ atlassian_jira_version }}-jira-{{ atlassian_jira_version }}.tar.gz"
+    download_url: "{{ atlassian_jira_baseurl }}/atlassian-jira-software-{{ atlassian_jira_version }}.tar.gz"
+    download_tmp: "{{ atlassian_jira_basedir }}/atlassian-jira-software-{{ atlassian_jira_version }}.tar.gz"
     atlassian_jira_dir: "{{ atlassian_jira_basedir }}/atlassian-jira-software-{{ atlassian_jira_version }}-standalone"
   when: atlassian_jira_type == 'software'
