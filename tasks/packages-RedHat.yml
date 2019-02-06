@@ -1,7 +1,7 @@
 ---
 
 - name: "check packages (redhat)"
-  yum:
+  package:
     pkg: "{{ package.name }}"
     state: "{{ package.state }}"
   with_items: "{{ atlassian_jira_packages }}"
